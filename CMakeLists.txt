@@ -49,10 +49,6 @@ if(NOT ${OpenCV_FOUND})
   endif()
 endif()
 
-find_package(catkin REQUIRED COMPONENTS
-  cmake_modules
-)
-
 find_package(Eigen3 REQUIRED)
 
 # Set build flags, depending on the architecture
@@ -82,22 +78,10 @@ endif()
 set(EIGEN3_INCLUDE_DIRS ${EIGEN3_INCLUDE_DIR})
 set(EIGEN3_LIBRARIES ${EIGEN3_LIBRARIES})
 
-# Configure this package
-catkin_package(
-	DEPENDS EIGEN3
-  INCLUDE_DIRS include ${EIGEN3_INCLUDE_DIR}
-  LIBRARIES x
-)
-
-## Package internal and additional locations of header files
-## Separating the projects include directory from {catkin_INCLUDE_DIRS}
-## allows to tag that with SYSTEM, which disables GCC warnings for
-## these (all the ros header, opencv, ..)
 include_directories (include)
 
 include_directories (SYSTEM
   ${OpenCV_INCLUDE_DIRS}
-  ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIR}
 )
 
@@ -130,5 +114,4 @@ add_library (x ${SOURCE})
 # Additional libraries to link against
 target_link_libraries(x
   ${OpenCV_LIBRARIES}
-  ${catkin_LIBRARIES}
 )
